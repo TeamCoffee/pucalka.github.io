@@ -1,3 +1,4 @@
+//Depends on vector
 class spritesheet {
     //Initializes a new spritesheet with 
     //given path,singleSize and spritesheet gridSize
@@ -59,9 +60,7 @@ class spritesheet {
         var gridPos=new vector(
             gridX,
             gridY);
-        
-        console.log(gridPos)
-        
+                
         var spritePosX=gridPos.x*this.singleSpriteSize.x;
         var spritePosY=gridPos.y*this.singleSpriteSize.y;
         var spritePos=new vector(
@@ -69,6 +68,12 @@ class spritesheet {
             spritePosY);
         
         return spritePos;
+    }
+    
+    allSpritesCount(){
+        var count=this.gridSize.x*this.gridSize.y;
+        
+        return count;
     }
     
     //Draws single sprite from the spritesheet with
