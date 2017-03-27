@@ -10,7 +10,7 @@ var canvas = engine.canvas;
 var mouse = mouse(canvas);
 var keys = keys();
 
-var s1 = new spritesheet("images/test1.png",new vector(96,130),new vector(7,3));
+var s1 = new spritesheet("../images/test1.png",new vector(96,130),new vector(7,3));
 var b1 = new backgroundTile(
     new vector(500,100),
     new vector(100,130),
