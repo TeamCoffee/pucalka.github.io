@@ -17,3 +17,4 @@ class player extends gameObject{
     update(){
     }
 }
+//TODO: find if possible inheritance and calling super constructor with arguments variable

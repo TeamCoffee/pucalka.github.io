@@ -1,64 +1,102 @@
-//sprite inner images should be positioned with equal padding from one another and with equal size;
-class Sprite extends gameObject {
-    //source is image source
-    //pos where should the image be positioned on the canavas;
-    //size of the image on the canvas;
-    //how many images are in the sprite;
-    constructor(pos, size, numberOfImagesOnSprite, imgId) {
-        super(pos, size);
-        this._img = document.getElementById(imgId);
-        this.src = this._img.getAttribute('src');
-        this._numberOfImages = numberOfImagesOnSprite;
-
-
+class spritesheet {
+    //Initializes a new spritesheet with 
+    //given path,singleSize and spritesheet gridSize
+    constructor(src,singleSpriteSize,gridSize){
+        this.image=new Image();
+        this.image.src=src;
+        
+        this.singleSpriteSize=singleSpriteSize;
+        
+        this.gridSize=gridSize;
     }
-    get numberOfImages() {
-        return this._numberOfImages;
+    
+    get image(){
+        return this._image;
     }
-
-    get src() {
-        return this._src;
-    }
-
-    set src(value) {
-        if (typeof value !== 'string') {
-            throw "src must be string ";
+    
+    set image(value){
+        if(!(value instanceof Image)){
+            throw new Error("Passed argument should be of type Image");
         }
-        this._src = value;
+        
+        this._image=value;
     }
-
-    get img() {
-        return this._img;
+        
+    get singleSpriteSize(){
+        return this._singleSpriteSize;
     }
-
-    //nubmerOfImg is 0 based (number of image on the sprite)
-    //context to use
-    //fullHeight means should we use full height of the sprite or no
-    //fullWidht -//-
-    draw(context, numberOfImg, fullHeight, fullWidth) {
-        if (numberOfImg > this.numberOfImages - 1) {
-            throw "can`t draw image that is not on the sprite";
+        
+    set singleSpriteSize(value){
+        if(!(value instanceof vector)){
+            throw new Error("Passed argument should be of type vector");
         }
-        var imageStartCordinateY, imageStartCordinateX;
-        var imageSizeX, imageSizeY;
-
-        if (fullWidth) {
-            imageStartCordinateX = 0;
-            imageSizeX = this.img.width;
-        } else {
-            imageSizeX = this.img.width / this.numberOfImages;
-            imageStartCordinateX = imageSizeX * numberOfImg;
-
+        
+        this._singleSpriteSize=value;
+    }
+    
+    get gridSize(){
+        return this._gridSize;
+    }
+    
+    set gridSize(value){
+        if(!(value instanceof vector)){
+            throw new Error("Passed argument should be of type vector");
         }
-        if (fullHeight) {
-            imageStartCordinateY = 0;
-            imageSizeY = this.img.height;
-        } else {
-            imageSizeY = (this.img.height / this.numberOfImages);
-            imageStartCordinateY = imageSizeY * numberOfImg;
-
+        
+        this._gridSize=value;
+    }
+    
+    //Calculates the position of a single sprite on the source image
+    //based on a single number spriteN
+    calculateSourcePosition(spriteN){
+        if(!typeof(spriteN)=="number"){
+            throw new Error("Passed argument should be number");
         }
-        context.drawImage(this.img, imageStartCordinateX, imageStartCordinateY, imageSizeX, imageSizeY, this.pos.x, this.pos.y, this.size.x, this.size.y)
-
+        
+        console.log()
+        var gridX=spriteN%this.gridSize.x;
+        var gridY=Math.floor(spriteN/this.gridSize.x);
+        var gridPos=new vector(
+            gridX,
+            gridY);
+        
+        console.log(gridPos)
+        
+        var spritePosX=gridPos.x*this.singleSpriteSize.x;
+        var spritePosY=gridPos.y*this.singleSpriteSize.y;
+        var spritePos=new vector(
+            spritePosX,
+            spritePosY);
+        
+        return spritePos;
+    }
+    
+    //Draws single sprite from the spritesheet with
+    //given drawPos,drawSize and spriteN on a given context
+    drawSprite(pos,size,spriteN,context){
+        if(!(pos instanceof vector)){
+            throw new Error("Pos parameter should be of type vector");
+        }
+        
+        if(!(size instanceof vector)){
+            throw new Error("Size parameter should be of type vector");
+        }
+        
+        if(!typeof(spriteN)=="number"){
+            throw new Error("SpriteN should be number");
+        }
+        
+        var sourcePos=this.calculateSourcePosition(spriteN);
+        
+        context.drawImage(
+            this.image,
+            sourcePos.x,
+            sourcePos.y,
+            this.singleSpriteSize.x,
+            this.singleSpriteSize.y,
+            pos.x,
+            pos.y,
+            size.x,
+            size.y);
     }
 }
