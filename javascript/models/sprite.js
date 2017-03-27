@@ -1,14 +1,13 @@
 //sprite inner images should be positioned with equal padding from one another and with equal size;
-class Sprite() {
+class Sprite extends gameObject {
     //source is image source
     //pos where should the image be positioned on the canavas;
     //size of the image on the canvas;
     //how many images are in the sprite;
-    constructor(source, pos, size, numberOfImagesOnSprite) {
+    constructor(pos, size, numberOfImagesOnSprite, imgId) {
         super(pos, size);
-        this.src = source;
-        this._img = document.createElement('img');
-        _img.setAttribute('src', source);
+        this._img = document.getElementById(imgId);
+        this.src = this._img.getAttribute('src');
         this._numberOfImages = numberOfImagesOnSprite;
 
 
@@ -37,6 +36,9 @@ class Sprite() {
     //fullHeight means should we use full height of the sprite or no
     //fullWidht -//-
     draw(context, numberOfImg, fullHeight, fullWidth) {
+        if (numberOfImg > this.numberOfImages - 1) {
+            throw "can`t draw image that is not on the sprite";
+        }
         var imageStartCordinateY, imageStartCordinateX;
         var imageSizeX, imageSizeY;
 
@@ -56,7 +58,7 @@ class Sprite() {
             imageStartCordinateY = imageSizeY * numberOfImg;
 
         }
-        context.drawImage(this.img, imageStartCordinateX, imageStartCordinateY, imageSizeX, imageSizeY, this.size.x, this.size.y)
+        context.drawImage(this.img, imageStartCordinateX, imageStartCordinateY, imageSizeX, imageSizeY, this.pos.x, this.pos.y, this.size.x, this.size.y)
 
     }
 }
