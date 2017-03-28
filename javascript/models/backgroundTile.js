@@ -4,80 +4,83 @@
 //Hold information about a spritesheet and 
 //a timer that counts different sprite 
 //images on the spritesheet 
-class backgroundTile extends gameObject{
-    constructor(pos, size, momentum, spritesheet,spriteTimerSpeed){
-        super(pos,size);
-        
-        this.momentum=momentum;
-        
-        this.spritesheet=spritesheet;
-        this.spriteTimer=0;
-        this.spriteTimerSpeed=spriteTimerSpeed;
+class backgroundTile extends gameObject {
+    constructor(pos, size, momentum, spritesheet, spriteTimerSpeed) {
+        super(pos, size);
+
+        this.momentum = momentum;
+
+        this.spritesheet = spritesheet;
+        this.spriteTimer = 0;
+        this.spriteTimerSpeed = spriteTimerSpeed;
     }
-    
-    get momentum(){
+
+    //speed on the canvas
+    get momentum() {
         return this._momentum;
     }
-    
-    set momentum(value){
-        if(!typeof(value)=="number"){
-            throw new Error("Passed argument should be number");
+
+    set momentum(value) {
+        if (!(value instanceof vector)) {
+            throw new Error("Passed argument should be vector");
         }
-        
-        this._momentum=value;
+
+        this._momentum = value;
     }
-    
-    get spritesheet(){
+
+    get spritesheet() {
         return this._spritesheet;
     }
-    
-    set spritesheet(value){
-        if(!(value instanceof spritesheet)){
+
+    set spritesheet(value) {
+        if (!(value instanceof spritesheet)) {
             throw new Error("Passed argument should be number");
         }
-        
-        this._spritesheet=value;
+
+        this._spritesheet = value;
     }
-    
-    get spriteTimer(){
+
+    //how to change imgs on the sprite
+    get spriteTimer() {
         return this._spriteTimer;
     }
-    
-    set spriteTimer(value){
-        if(!typeof(value)=="number"){
+
+    set spriteTimer(value) {
+        if (!(typeof(value) == "number")) {
             throw new Error("Passed argument should be number");
         }
-        
-        this._spriteTimer=value;
+
+        this._spriteTimer = value;
     }
-    
-    get spriteTimerSpeed(){
+
+    get spriteTimerSpeed() {
         return this._spriteTimerSpeed;
     }
-    
-    set spriteTimerSpeed(value){
-        if(!typeof(value)=="number"){
+
+    set spriteTimerSpeed(value) {
+        if (!(typeof(value) == "number")) {
             throw new Error("Passed argument should be number");
         }
-        
-        this._spriteTimerSpeed=value;
+
+        this._spriteTimerSpeed = value;
     }
-    
-    update(){
-        this.pos.x+=this.momentum.x;
-        this.pos.y+=this.momentum.y;
-        
-        this.spriteTimer+=this.spriteTimerSpeed;
+
+    update() {
+        this.pos.x += this.momentum.x;
+        this.pos.y += this.momentum.y;
+
+        this.spriteTimer += this.spriteTimerSpeed;
     }
-    
-    calculateSpriteN(){
+
+    //calculate which img in the sprite to draw based on spriteTimer starting from 0 img to the last one
+    calculateSpriteN() {
         var spriteN = Math.floor(this.spriteTimer) %
             this.spritesheet.allSpritesCount();
         return spriteN;
     }
-    
-    draw(context){
-        var spriteN=this.calculateSpriteN();
+
+    draw(context) {
+        var spriteN = this.calculateSpriteN();
 
         this.spritesheet.drawSprite(
             this.pos,
@@ -85,5 +88,5 @@ class backgroundTile extends gameObject{
             spriteN,
             context);
     }
-    
+
 }
