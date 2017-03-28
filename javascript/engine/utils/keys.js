@@ -1,37 +1,41 @@
 //Todo : better realization
 //Returns function -> fix
-function keys(){
-    var isPressed=[];
-    
-    function keyCodeProvider(args){
+function keys() {
+    var isPressed = [];
+
+    function keyCodeProvider(args) {
         return args.keyCode;
     }
-    
-    window.addEventListener("keydown", function(args){
+
+    window.addEventListener("keydown", function(args) {
+        debugger;
         isPressed[keyCodeProvider(args)] = 1;
-    },false);
-    
-    window.addEventListener("keyup", function(args){
+    }, false);
+
+    window.addEventListener("keyup", function(args) {
         isPressed[keyCodeProvider(args)] = 0;
-    },false);
-    
-    function Pressed(key){
+    }, false);
+
+    //get value for a key if it is pressed or not 
+    function Pressed(key) {
         var indexer;
-        
-        if(typeof(key)=="number"){
-            indexer=key;
+
+        if (typeof(key) == "number") {
+            indexer = key;
         }
-        
-        if(typeof(key)=="string"){
+
+        if (typeof(key) == "string") {
             indexer = key.charCodeAt(0) - 32;
         }
-        
-        if(typeof(isPressed[indexer])=="undefined"){
+
+        //if not pressed event once returns 0 ;
+        //else returns its value;
+        if (typeof(isPressed[indexer]) == "undefined") {
             isPressed[indexer] = 0;
         }
-        
+
         return isPressed[indexer];
     }
-    
+
     return Pressed;
 }

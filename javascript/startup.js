@@ -10,16 +10,19 @@ var canvas = engine.canvas;
 var mouse = mouse(canvas);
 var keys = keys();
 
-var s1 = new spritesheet("../images/test1.png",new vector(96,130),new vector(7,3));
+var s1 = new spritesheet("../images/test1.png", new vector(96, 130), new vector(7, 3));
+debugger;
+var p1 = new player(new vector(100, 100), new vector(100, 130), s1, new vector(2, 4), 0.5);
 var b1 = new backgroundTile(
-    new vector(500,100),
-    new vector(100,130),
-    new vector(-2,0),
+    new vector(500, 100),
+    new vector(100, 130),
+    new vector(-2, 0),
     s1,
     0.5);
 
 engine.update = function() {
     b1.update();
+    p1.update();
 }
 
 
@@ -33,9 +36,10 @@ engine.draw = function() {
         Math.floor(timer)%21,
         context);
         */
-    
+
     b1.draw(context);
-    
+    p1.playerDraw(context);
+
     context.fillRect(mouse.x, mouse.y, 10, 10);
 
     context.strokeRect(0, 0, canvas.width, canvas.height);
