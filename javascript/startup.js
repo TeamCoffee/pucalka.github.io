@@ -25,9 +25,9 @@ function getRandomArbitrary(min, max) {
 }
 
 
-var width = getRandomArbitrary(50, 750);
+var enemyStartPos = getRandomArbitrary(50, 750);
 var enemySprite = new spritesheet("../images/enemy.png", new vector(96, 130), new vector(7, 3));
-var enemyUnit = new enemy(new vector(800, width), new vector(100, 130), enemySprite, new vector(5, 10), 0.25);
+var enemyUnit = new enemy(new vector(800, enemyStartPos), new vector(100, 130), enemySprite, new vector(5, 10), 0.25);
 
 var b1 = new backgroundTile(
     new vector(500, 100),
