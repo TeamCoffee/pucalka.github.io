@@ -1,7 +1,7 @@
 //Depends on backgroundTile
 //Depends on vector
 //it holds all backgroundTiles as an array and give a easy way to update and draw them simultaniously on the canvas
-class backgroundTileHolder {
+class BackgroundTileHolder {
     constructor() {
         this.backgroundTiles = new Array();
     }
