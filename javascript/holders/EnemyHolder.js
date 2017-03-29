@@ -33,7 +33,7 @@ class enemyHolder {
         this.totalEnemies.pop();
     }
 
-    update(canvas) {
+    update(canvas,bulletsHolder,scoreVariable) {
         this.spawnTimer+=1;
         if(this.spawnTimer%this.spawnTimerSize==0){
             this.add(enemyMaker.enemy1())
@@ -45,7 +45,13 @@ class enemyHolder {
                 continue;
             }
             
-            this.totalEnemies[i].update();            
+            if(this.totalEnemies[i].health<0){
+                this.remove(i);
+                scoreVariable.value+=1;
+            }
+            if(this.totalEnemies[i]){
+                this.totalEnemies[i].update(bulletsHolder);
+            }
         }
     }
     

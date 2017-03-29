@@ -14,6 +14,8 @@ class player extends gameObject {
             down:false,
         };
         this.health=100;
+        this.shootingTimer=0;
+        this.shootingSpeed=10;
     }
     
     get spritesheet() {
@@ -72,18 +74,28 @@ class player extends gameObject {
     }
 
     update(isPressedFunction,bulletHolder) {
+        if(this.health<100){
+            this.health+=1;
+        }
+        
         this.moving = {
             left:false,
             right:false,
             up:false,
             down:false,
         }
+        
         this.playerUpdatePosition(isPressedFunction);
         
-        if(isPressedFunction(32)){
-            console.log("in")
+        if(this.shootingTimer>0){
+            this.shootingTimer-=1;
+        }
+        
+        if(isPressedFunction(32) && this.shootingTimer==0){
+            this.shootingTimer=this.shootingSpeed;
+            
             bulletHolder1.add(bulletMaker.bullet1(
-                new vector(this.pos.x,this.pos.y),
+                new vector(this.pos.x+120,this.pos.y+35),
                 new vector(4,0)));
         }
     }
@@ -174,16 +186,23 @@ class player extends gameObject {
         }
     }
     
-    drawPlayerHealthbar(context){
-        context.fillStyle="gray";
-        context.fillRect(0,canvas.height-5,canvas.width,5);
+    drawPlayerInfo(context){
+        context.fillStyle="#2c3e50";
+        context.fillRect(0,canvas.height-30,canvas.width,30);
         context.fillStyle="#e74c3c";
-        context.fillRect(0,canvas.width-5,this.health*7,5)
+        context.fillRect(0,canvas.width-30,this.health*7,15)
+        
+        context.fillStyle="#f1c40f";
+        context.fillRect(
+            0,
+            canvas.width-15,
+            (this.shootingSpeed-this.shootingTimer)/this.shootingSpeed*700,
+            15)
     }
     
     draw(context){
         this.drawPlayerSprite(context);
-        this.drawPlayerHealthbar(context);
+        this.drawPlayerInfo(context);
         //super.draw(context);
     }
 

@@ -3,12 +3,15 @@
 //depends on spritesheet
 var counter=0;
 class enemy extends gameObject {
-    constructor(pos, size ,enemyImgAsSprite, speed, spriteTimerSpeed) {
+    constructor(pos, size ,enemyImgAsSprite, speed, spriteTimerSpeed,fireTimerSpeed) {
         super(pos, size);
         this.enemyImgAsSprite = enemyImgAsSprite;
         this.speed = speed;
         this.spriteTimer = 0;
         this.spriteTimerSpeed = spriteTimerSpeed;
+        this.health=50;
+        this.fireTimerSpeed=fireTimerSpeed;
+        this.fireTimer=0;
     }
     
     get spriteTimer() {
@@ -64,7 +67,14 @@ class enemy extends gameObject {
         this.pos.y += this.speed.y;
     }
     
-    update() {
+    update(bulletsHolder) {
+        if(this.fireTimer%this.fireTimerSpeed==0){
+            bulletsHolder.add(
+                bulletMaker.bullet1(
+                    new vector(this.pos.x-20,this.pos.y+60),
+                    new vector(-8,0)));
+        }
+        this.fireTimer+=1;
         this.enemyUpdatePosition();
         this.spriteTimer += this.spriteTimerSpeed;
     }

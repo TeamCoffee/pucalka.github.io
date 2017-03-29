@@ -31,7 +31,7 @@ class bulletHolder{
         }
     }
 
-    collidesWith(gameObject) {
+    collideWith(gameObject) {
         for (var i = 0; i < this.bulletsFired.length; i++) {
             if(this.bulletsFired[i].collidesWith(gameObject)) {
                 return i;

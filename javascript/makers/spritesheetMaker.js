@@ -30,7 +30,7 @@ class spritesheetMaker{
     static enemy1(){
         return new spritesheet(
             "../images/enemy.png",
-            new vector(95,130),
+            new vector(100,136),
             new vector(7,3));
     }
     

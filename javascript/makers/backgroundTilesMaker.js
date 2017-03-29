@@ -3,7 +3,7 @@ class backgroundTilesMaker{
         return new backgroundTile(
             new vector(canvas.width,0),
             new vector(canvas.width*3,canvas.height),
-            new vector(-4,0),
+            new vector(-1,0),
             spritesheetMaker.background1(),
             0
         )
@@ -12,7 +12,7 @@ class backgroundTilesMaker{
         return new backgroundTile(
             new vector(canvas.width,0),
             new vector(canvas.width*6,canvas.height),
-            new vector(-8,0),
+            new vector(-4,0),
             spritesheetMaker.background2(),
             0
         )
@@ -21,7 +21,7 @@ class backgroundTilesMaker{
         return new backgroundTile(
             new vector(canvas.width,0),
             new vector(canvas.width*12,canvas.height),
-            new vector(-16,0),
+            new vector(-8,0),
             spritesheetMaker.background3(),
             0
         )
