@@ -4,6 +4,8 @@ var engine = new Engine(800, 800, {
     updateCallbackTime: 40
 });
 
+
+
 var context = engine.context;
 var canvas = engine.canvas;
 
@@ -11,8 +13,22 @@ var mouse = mouse(canvas);
 var keys = keys();
 
 var s1 = new spritesheet("../images/test1.png", new vector(96, 130), new vector(7, 3));
+
 debugger;
 var p1 = new player(new vector(100, 100), new vector(100, 130), s1, new vector(2, 4), 0.5);
+
+//enemy creation
+var alive = true;
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
+var width = getRandomArbitrary(50, 750);
+var enemySprite = new spritesheet("../images/enemy.png", new vector(96, 130), new vector(7, 3));
+var enemyUnit = new enemy(new vector(800, width), new vector(100, 130), enemySprite, new vector(5, 10), 0.25);
+
 var b1 = new backgroundTile(
     new vector(500, 100),
     new vector(100, 130),
@@ -20,13 +36,17 @@ var b1 = new backgroundTile(
     s1,
     0.5);
 
-engine.update = function() {
+
+
+engine.update = function () {
     b1.update();
     p1.update();
+    enemyUnit.update();
+
 }
 
 
-engine.draw = function() {
+engine.draw = function () {
     context.globalAlpha = 1;
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -39,6 +59,7 @@ engine.draw = function() {
 
     b1.draw(context);
     p1.playerDraw(context);
+    enemyUnit.enemyDraw(context);
 
     context.fillRect(mouse.x, mouse.y, 10, 10);
 
