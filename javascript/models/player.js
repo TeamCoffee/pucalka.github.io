@@ -12,7 +12,8 @@ class player extends gameObject {
             right:false,
             up:false,
             down:false,
-        }
+        };
+        this.health=100;
     }
     
     get spritesheet() {
@@ -21,7 +22,7 @@ class player extends gameObject {
 
     set spritesheet(value) {
         if (!(value instanceof spritesheet)) {
-            throw new Error('Passed argument should be spritesheet');
+            throw new Error('Passed argument should be of type spritesheet');
         }
 
         this._spritesheet = value;
@@ -37,6 +38,18 @@ class player extends gameObject {
         }
 
         this._speed = value;
+    }
+    
+    get health(){
+        return this._health;
+    }
+    
+    set health(value){
+        if(!typeof(value)=="number"){
+            throw new Error("Passed value should be number");
+        }
+        
+        this._health=value;
     }
     
     playerUpdatePosition(isPressedFunction) {
@@ -58,7 +71,7 @@ class player extends gameObject {
         }
     }
 
-    update(isPressedFunction) {
+    update(isPressedFunction,bulletHolder) {
         this.moving = {
             left:false,
             right:false,
@@ -66,6 +79,13 @@ class player extends gameObject {
             down:false,
         }
         this.playerUpdatePosition(isPressedFunction);
+        
+        if(isPressedFunction(32)){
+            console.log("in")
+            bulletHolder1.add(bulletMaker.bullet1(
+                new vector(this.pos.x,this.pos.y),
+                new vector(4,0)));
+        }
     }
 
     /*calculateSpriteN() {
@@ -74,7 +94,7 @@ class player extends gameObject {
         return spriteN;
     }*/
 
-    draw(context) {
+    drawPlayerSprite(context){
         var drawn=false;
         //context.fillStyle = "green";
         //context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
@@ -152,7 +172,18 @@ class player extends gameObject {
                 context);
             drawn=true;
         }
-        
+    }
+    
+    drawPlayerHealthbar(context){
+        context.fillStyle="gray";
+        context.fillRect(0,canvas.height-5,canvas.width,5);
+        context.fillStyle="#e74c3c";
+        context.fillRect(0,canvas.width-5,this.health*7,5)
+    }
+    
+    draw(context){
+        this.drawPlayerSprite(context);
+        this.drawPlayerHealthbar(context);
         //super.draw(context);
     }
 

@@ -3,12 +3,12 @@
 //depends on spritesheet
 var counter=0;
 class enemy extends gameObject {
-    constructor(pos, size, enemyImgAsSprite, speed, spriteTimerSpeed) {
+    constructor(pos, size ,enemyImgAsSprite, speed, spriteTimerSpeed) {
         super(pos, size);
         this.enemyImgAsSprite = enemyImgAsSprite;
         this.speed = speed;
         this.spriteTimer = 0;
-        this.spriteTimerSpeed = spriteTimerSpeed;        
+        this.spriteTimerSpeed = spriteTimerSpeed;
     }
     
     get spriteTimer() {
@@ -60,24 +60,12 @@ class enemy extends gameObject {
     }
 
     enemyUpdatePosition() {
-        counter++;
-        this.pos.x -= (counter/5)*this.speed.x;
-        if(this.pos.x > 400){
-            this.pos.x += this.speed.x;
-            this.pos.y += this.speed.y;
-        }  
-         if(this.pos.y > 400){
-            this.pos.x -= this.speed.x;
-            this.pos.y -= this.speed.y;
-        }        
-
-        //console.log(this.pos.x);
-       
+        this.pos.x += this.speed.x;
+        this.pos.y += this.speed.y;
     }
     
     update() {
         this.enemyUpdatePosition();
-        
         this.spriteTimer += this.spriteTimerSpeed;
     }
 
@@ -86,19 +74,12 @@ class enemy extends gameObject {
             this.enemyImgAsSprite.allSpritesCount();
         return spriteN;
     }
-
-    enemyDraw(context) {
+    
+    draw(context) {
         var spriteN = this.calculateSpriteN();
         this.enemyImgAsSprite.drawSprite(this.pos,
             this.size,
             spriteN,
             context);
-    }
-    collidesWith(otherObject){
-        if((!otherObject instanceof gameObject)){
-            throw new Error("Argument should be of type game object");
-        }
-        //console.log("colided");
-        return true;
     }
 }

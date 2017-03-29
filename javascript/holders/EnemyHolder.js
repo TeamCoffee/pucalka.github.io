@@ -1,94 +1,67 @@
 //Depends on gameObject
-//it holds all enemies 
-
-class enemyHolder extends gameObject {
-
-    constructor() {
+//Depends on vector
+//Depends on enemy
+class enemyHolder {
+    constructor(spawnTimerSize) {
         this.totalEnemies = new Array();
+        this.spawnTimer=0;
+        this.spawnTimerSize=spawnTimerSize;
     }
 
     get totalEnemies() {
-        return this.totalEnemies;
+        return this._totalEnemies;
     }
 
     set totalEnemies(value) {
         if (!(value instanceof Array)) {
             throw new Error("Passed argument should be an array of enemies");
         }
-        this.totalEnemies = value;
+        
+        this._totalEnemies = value;
     }
 
-    add(enemy) {
-        if (enemy === undefined || !(enemy instanceof Enemy)) {
-            throw new Error('Argument should be an enemy to add.');
+    add(added) {
+        if (added === undefined || !(added instanceof enemy)) {
+            throw new Error('Argument should be of type enemy');
         }
 
-        totalEnemies.push(enemy);
-    }
-
-    isEnemyOutsideField(enemy) {
-        var enemyIsOutsideField = (enemy.pos.x > canvas.width
-                                    ||
-                                    enemy.pos.y > canvas.height
-                                    ||
-                                    enemy.pos.x < 0
-                                    ||
-                                    enemy.pos.y < 0)
-
-        return enemyIsOutsideField;
+        this.totalEnemies.push(added);
     }
 
     remove(enemyId) {
-        if (totalEnemies !== null) {
-
-            var matchingEnemy = totalEnemies.find(e => e.id === enemyId);
-
-            if (isEnemyOutsideField(matchingEnemy)){
-                var index = totalEnemies.indexOf(matchingEnemy);
-                totalEnemies.splice(index, 1);
-            }
-            else {
-                for (var i = 0; i < totalEnemies.length; i++) {
-                    if (enemyId === totalEnemies[i].id) {
-                        var index = totalEnemies.indexOf(totalEnemies[i]);
-                        totalEnemies.splice(index, 1);
-                    }
-                }
-            }
-        }
-
+        this.totalEnemies[enemyId]=this.totalEnemies[this.totalEnemies.length-1];
+        this.totalEnemies.pop();
     }
 
-    update() {
-        var enemysCount = this.enemy.length;
-        for (var i = 0; i < enemysCount; i++) {
-            if (!(isEnemyOutsideField(totalEnemies[i]))) {
-                totalEnemies[i].update();
+    update(canvas) {
+        this.spawnTimer+=1;
+        if(this.spawnTimer%this.spawnTimerSize==0){
+            this.add(enemyMaker.enemy1())
+        }
+        
+        for (var i = 0; i < this.totalEnemies.length; i++) {
+            if(!this.totalEnemies[i].isOnCanvas(canvas)){
+                this.remove(i);
+                continue;
             }
             
+            this.totalEnemies[i].update();            
         }
     }
     
     draw(context) {
-        var enemysCount = this.enemy.length;
-        for (var i = 0; i < enemysCount; i++) {
-            if (!(isEnemyOutsideField(totalEnemies[i]))) {
-                totalEnemies[i].draw(context);
-            }
+        for (var i = 0; i < this.totalEnemies.length; i++) {
+            this.totalEnemies[i].draw(context);
         }
     }
 
-    collidesWith(gameObject) {
-        for (var i = 0; i < totalEnemies.length; i++) {
-            if (totalEnemies[i].pos.x === gameObject.pos.x
-                &&
-                totalEnemies[i].pos.y === gameObject.pos.y) {
-                return totalEnemies[i].id;
-            }
-            else {
-                return null;
+    collideWith(gameObject) {
+        for (var i = 0; i < this.totalEnemies.length; i++) {
+            if (this.totalEnemies[i].collidesWith(gameObject)){
+                return i;
             }
         }
+        return null;
     }
 }
 

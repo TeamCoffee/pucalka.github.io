@@ -1,12 +1,13 @@
-class Bullet extends gameObject{
-    constructor(pos, size, speed, spriteImg,spriteTimerSpeed){
+class bullet extends gameObject{
+    constructor(pos, size, speed, spriteImg, spriteTimerSpeed){
         super(pos, size);
         this.speed=speed;
         this.spriteImg=spriteImg;
         this.spriteTimer = 0;
         this.spriteTimerSpeed = spriteTimerSpeed;
     }
-     get speed() {
+     
+    get speed() {
         return this._speed;
     }
 
@@ -18,7 +19,7 @@ class Bullet extends gameObject{
         this._speed = value;
     }
 
-   get spriteImg() {
+    get spriteImg() {
         return this._spriteImg;
     }
 
@@ -30,7 +31,6 @@ class Bullet extends gameObject{
         this._spriteImg = value;
 
     }
-
 
     get spriteTimer() {
         return this._spriteTimer;
@@ -56,25 +56,19 @@ class Bullet extends gameObject{
         this._spriteTimerSpeed = value;
     }
 
-
-
-
-    bulletShot(){
-        if (keys(32) === 1) {
-            this.pos.x += 5;
-        }
-
-
+    update() {
+        this.pos.x+=this.speed.x;
+        this.pos.y+=this.speed.y;
+        this.spriteTimer+=this.spriteTimerSpeed;
     }
-
-        update() {
-        this.bulletShot();
-        
-        this.spriteTimer += this.spriteTimerSpeed;
+    
+    calculateSpriteN() {
+        var spriteN = Math.floor(this.spriteTimer) %
+            this.spriteImg.allSpritesCount();
+        return spriteN;
     }
-   
-
-       bulletDraw(context) {
+    
+    draw(context) {
         var spriteN = this.calculateSpriteN();
         this.spriteImg.drawSprite(this.pos,
             this.size,
