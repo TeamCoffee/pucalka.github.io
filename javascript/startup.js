@@ -13,6 +13,7 @@ var mouse = mouse(canvas);
 var keys = keys();
 
 var player1= playerMaker.player1();
+
 var backgroundHolder1 = new backgroundTileHolder(500,backgroundTilesMaker.tile1);
 var backgroundHolder2 = new backgroundTileHolder(500,backgroundTilesMaker.tile2);
 var backgroundHolder3 = new backgroundTileHolder(500,backgroundTilesMaker.tile3);
@@ -21,6 +22,7 @@ engine.update = function () {
     backgroundHolder1.update(canvas);
     backgroundHolder2.update(canvas);
     backgroundHolder3.update(canvas);
+    
     player1.update(keys);
 }
 
