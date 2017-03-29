@@ -27,13 +27,13 @@ class BulletHolder extends gameObject {
     }
 
     isBulletOutsideField(bullet) {
-        var bulletIsOutsideField = (matchingBullet.pos.x > canvas.width
+        var bulletIsOutsideField = (bullet.pos.x > canvas.width
                                     ||
-                                    matchingBullet.pos.y > canvas.height
+                                    bullet.pos.y > canvas.height
                                     ||
-                                    matchingBullet.pos.x < 0
+                                    bullet.pos.x < 0
                                     ||
-                                    matchingBullet.pos.y < 0)
+                                    bullet.pos.y < 0)
 
         return bulletIsOutsideField;
     }
@@ -62,15 +62,15 @@ class BulletHolder extends gameObject {
     draw() {
         for (var i = 0; i < bulletsFired.length; i++) {
             if (!(isBulletOutsideField(bulletsFired[i]))) {
-                base.draw(bulletsFired[i]);
+                bulletsFired[i].draw();
             }
         }
     }
 
-    update() { 
+    update(context) { 
         for (var i = 0; i < bulletsFired.length; i++) {
             if (!(isBulletOutsideField(bulletsFired[i]))) {
-                base.update(bulletsFired[i]);
+                bulletsFired[i].update(context);
             }
             
         }
