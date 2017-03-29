@@ -1,3 +1,6 @@
+//Depends on vector
+//Depends on gameObject
+//depends on spritesheet
 var counter=0;
 class enemy extends gameObject {
     constructor(pos, size, enemyImgAsSprite, speed, spriteTimerSpeed) {
@@ -58,8 +61,17 @@ class enemy extends gameObject {
 
     enemyUpdatePosition() {
         counter++;
-        this.pos.x -= (counter/5)*this.speed.x;        
-        console.log(this.pos.x);
+        this.pos.x -= (counter/5)*this.speed.x;
+        if(this.pos.x > 400){
+            this.pos.x += this.speed.x;
+            this.pos.y += this.speed.y;
+        }  
+         if(this.pos.y > 400){
+            this.pos.x -= this.speed.x;
+            this.pos.y -= this.speed.y;
+        }        
+
+        //console.log(this.pos.x);
        
     }
     
@@ -81,5 +93,12 @@ class enemy extends gameObject {
             this.size,
             spriteN,
             context);
+    }
+    collidesWith(otherObject){
+        if((!otherObject instanceof gameObject)){
+            throw new Error("Argument should be of type game object");
+        }
+        //console.log("colided");
+        return true;
     }
 }
