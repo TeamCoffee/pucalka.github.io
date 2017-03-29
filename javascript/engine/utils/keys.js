@@ -1,5 +1,4 @@
-//Todo : better realization
-//Returns function -> fix
+//Returns function Pressed(key) that indicates wheter a key is pressed
 function keys() {
     var isPressed = [];
 
@@ -8,7 +7,6 @@ function keys() {
     }
 
     window.addEventListener("keydown", function(args) {
-        debugger;
         isPressed[keyCodeProvider(args)] = 1;
     }, false);
 

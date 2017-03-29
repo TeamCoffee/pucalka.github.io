@@ -1,7 +1,7 @@
 //Depends on gameObject
 //it holds all fired bullets as an array and makes sure bullets shot outside the canvas are deleted
 
-class BulletHolder extends gameObject {
+class bulletHolder extends gameObject {
 
     constructor() {
         this.totalBullets = 1000;

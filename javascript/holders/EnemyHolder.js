@@ -1,7 +1,7 @@
 //Depends on gameObject
 //it holds all enemies 
 
-class EnemyHolder extends gameObject {
+class enemyHolder extends gameObject {
 
     constructor() {
         this.totalEnemies = new Array();

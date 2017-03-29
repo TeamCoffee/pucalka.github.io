@@ -3,40 +3,6 @@ class gameObject{
     constructor(pos,size){
         this.pos = new vector(pos);
         this.size = new vector(size);
-        
-        /*
-        if(arguments.length==0){
-            this.pos = new vector();
-            this.size = new vector();
-        }
-        
-        //Used to define point with no size
-        if(arguments.length==1){
-            var posArgument = arguments[0];
-            
-            this.pos = new vector(posArgument);
-            this.size = new vector();
-        }
-        
-        if(arguments.length==2){
-            var posArgument = arguments[0];
-            var sizeArgument = arguments[1];
-            
-            this.pos = new vector(posArgument);
-            this.size = new vector(sizeArgument);
-        }
-        
-        if(arguments.length==4){
-            var posX = arguments[0];
-            var posY = arguments[1];
-            
-            var sizeX = arguments[2];
-            var sizeY = arguments[3];
-        
-            this.pos = new vector(posX,posY);
-            this.size = new vector(sizeX,sizeY);
-        }
-        */
     }
     
     get pos(){
@@ -80,8 +46,29 @@ class gameObject{
             throw new Error("Argument should be of type game object");
         }
         
-        //rectangle collision check
+        if(this.pos.x<otherObject.pos.x+otherObject.size.x && 
+            this.pos.x + this.size.x > otherObject.pos.x &&
+            this.pos.y < otherObject.pos.y + otherObject.size.y &&
+            this.pos.y + this.size.y > otherObject.pos.y){
+            return true;
+        }
         
-        return true;
+        return false;
+    }
+    
+    isOnCanvas(canvas){
+        if(!(canvas instanceof HTMLCanvasElement)){
+            throw new Error("Passed argument should be of type HTMLCanvasElement");
+        }
+        
+        var canvasObject=new gameObject(
+            new vector(-100,-100),
+            new vector(canvas.width+200,canvas.height+200))
+        
+        if(this.collidesWith(canvasObject)){
+            return true;
+        }
+        
+        return false;
     }
 }
