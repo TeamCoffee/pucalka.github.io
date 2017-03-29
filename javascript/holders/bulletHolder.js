@@ -26,19 +26,24 @@ class BulletHolder extends gameObject {
         enemiesShot.push(enemyShot);
     }
 
+    isBulletOutsideField(bullet) {
+        var bulletIsOutsideField = (matchingBullet.pos.x > canvas.width
+                                    ||
+                                    matchingBullet.pos.y > canvas.height
+                                    ||
+                                    matchingBullet.pos.x < 0
+                                    ||
+                                    matchingBullet.pos.y < 0)
+
+        return bulletIsOutsideField;
+    }
+
     remove(bulletId) {
         if (bulletId !== null) {
 
             var matchingBullet = bulletsFired.find(b => b.id === bulletId);
 
-            if (matchingBullet.pos.x > canvas.width
-                ||
-                matchingBullet.pos.y > canvas.height
-                ||
-                matchingBullet.pos.x < 0
-                ||
-                matchingBullet.pos.y < 0) {
-
+            if (isBulletOutsideField(matchingBullet)) {
                 var index = bulletsFired.indexOf(matchingBullet);
                 bulletsFired.splice(index, 1);
             }
@@ -55,14 +60,19 @@ class BulletHolder extends gameObject {
     }
 
     draw() {
-        for(var i = 0; i < bulletsFired.length; i++){
-            base.draw(bulletFired[i]);
+        for (var i = 0; i < bulletsFired.length; i++) {
+            if (!(isBulletOutsideField(bulletsFired[i]))) {
+                base.draw(bulletsFired[i]);
+            }
         }
     }
 
     update() { 
         for (var i = 0; i < bulletsFired.length; i++) {
-            base.update(bulletFired[i]);
+            if (!(isBulletOutsideField(bulletsFired[i]))) {
+                base.update(bulletsFired[i]);
+            }
+            
         }
     }
 
