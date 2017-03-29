@@ -1,5 +1,5 @@
 var engine = new Engine(
-    700,
+    900,
     700, {
     canvasId: "canvas-id",
     contextType: "2d",
