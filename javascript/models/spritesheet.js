@@ -56,19 +56,16 @@ class spritesheet {
             throw new Error("Passed argument should be number");
         }
 
-        console.log();
         var gridX = spriteN % this.gridSize.x;
         var gridY = Math.floor(spriteN / this.gridSize.x);
         var gridPos = new vector(
             gridX,
             gridY);
-
         var spritePosX = gridPos.x * this.singleSpriteSize.x;
         var spritePosY = gridPos.y * this.singleSpriteSize.y;
         var spritePos = new vector(
             spritePosX,
             spritePosY);
-
         return spritePos;
     }
 
@@ -94,7 +91,7 @@ class spritesheet {
         }
 
         var sourcePos = this.calculateSourcePosition(spriteN);
-
+        
         context.drawImage(
             this.image,
             sourcePos.x,

@@ -1,6 +1,6 @@
 var engine = new Engine(
-    800,
-    800, {
+    700,
+    700, {
     canvasId: "canvas-id",
     contextType: "2d",
     updateCallbackTime: 20
@@ -13,10 +13,14 @@ var mouse = mouse(canvas);
 var keys = keys();
 
 var player1= playerMaker.player1();
-var backgroundHolder = new backgroundTileHolder(590);
+var backgroundHolder1 = new backgroundTileHolder(500,backgroundTilesMaker.tile1);
+var backgroundHolder2 = new backgroundTileHolder(500,backgroundTilesMaker.tile2);
+var backgroundHolder3 = new backgroundTileHolder(500,backgroundTilesMaker.tile3);
 
 engine.update = function () {
-    backgroundHolder.update(canvas);
+    backgroundHolder1.update(canvas);
+    backgroundHolder2.update(canvas);
+    backgroundHolder3.update(canvas);
     player1.update(keys);
 }
 
@@ -24,7 +28,9 @@ engine.draw = function () {
     context.globalAlpha = 1;
     context.clearRect(0, 0, canvas.width, canvas.height);
     
-    backgroundHolder.draw(context);
+    backgroundHolder1.draw(context);
+    backgroundHolder2.draw(context);
+    backgroundHolder3.draw(context);
     
     player1.draw(context);
     

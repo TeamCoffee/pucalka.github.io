@@ -2,11 +2,14 @@
 //Depends on vector
 //it holds all backgroundTiles as an array and give a easy way to update and draw them simultaniously on the canvas
 class backgroundTileHolder {
-    constructor(tileAddTimeInterval) {
+    constructor(tileAddTimeInterval,tileAddFunction) {
         this.backgroundTiles = new Array();
         this.tileAddTime=tileAddTimeInterval;
         this.tileAddTimeInterval=tileAddTimeInterval;
-        this.addTile(backgroundTilesMaker.stars1());
+        this.tileAddFunction=tileAddFunction;
+        
+        this.addTile(this.tileAddFunction());
+        
         this.backgroundTiles[0].pos.x=0;
     }
     get backgroundTiles() {
@@ -62,7 +65,7 @@ class backgroundTileHolder {
 
     update(canvas) {
         if(this.tileAddTime%this.tileAddTimeInterval==0){
-            this.addTile(backgroundTilesMaker.stars1());
+            this.addTile(this.tileAddFunction());
         }
         
         this.tileAddTime++;
