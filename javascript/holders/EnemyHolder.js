@@ -29,7 +29,8 @@ class enemyHolder {
     }
 
     remove(enemyId) {
-        this.totalEnemies[enemyId]=this.totalEnemies[this.totalEnemies.length-1];
+        this.totalEnemies[enemyId]=
+            this.totalEnemies[this.totalEnemies.length-1];
         this.totalEnemies.pop();
     }
 
@@ -42,14 +43,19 @@ class enemyHolder {
         for (var i = 0; i < this.totalEnemies.length; i++) {
             if(!this.totalEnemies[i].isOnCanvas(canvas)){
                 this.remove(i);
-                continue;
+                break;
             }
-            
-            if(this.totalEnemies[i].health<0){
-                this.remove(i);
-                scoreVariable.value+=1;
-            }
-            if(this.totalEnemies[i]){
+            if(this.totalEnemies[i] instanceof enemy &&
+               this.totalEnemies[i].health){
+                if(this.totalEnemies[i].health<-60){
+                    this.remove(i);
+                    scoreVariable.value+=1;
+                }
+                if(this.totalEnemies[i].health<0 &&
+                  this.totalEnemies[i].health>-40){
+                    this.totalEnemies[i].enemyImgAsSprite=
+                        spritesheetMaker.explosion1();
+                }
                 this.totalEnemies[i].update(bulletsHolder);
             }
         }

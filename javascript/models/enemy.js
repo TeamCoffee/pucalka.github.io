@@ -68,14 +68,19 @@ class enemy extends gameObject {
     }
     
     update(bulletsHolder) {
-        if(this.fireTimer%this.fireTimerSpeed==0){
-            bulletsHolder.add(
-                bulletMaker.bullet1(
-                    new vector(this.pos.x-20,this.pos.y+60),
-                    new vector(-8,0)));
+        if(this.health<0){
+            this.health--;
         }
-        this.fireTimer+=1;
-        this.enemyUpdatePosition();
+        if(this.health>0){
+            if(this.fireTimer%this.fireTimerSpeed==0){
+                bulletsHolder.add(
+                    bulletMaker.bullet1(
+                        new vector(this.pos.x-20,this.pos.y+60),
+                        new vector(-8,0)));
+            }
+            this.fireTimer+=1;
+            this.enemyUpdatePosition();
+        }
         this.spriteTimer += this.spriteTimerSpeed;
     }
 

@@ -189,11 +189,9 @@ class player extends gameObject {
     drawPlayerInfo(context){
         context.fillStyle="#2c3e50";
         context.fillRect(0,canvas.height-30,canvas.width,30);
-        console.log(canvas.width)
         context.fillStyle="#e74c3c";
         context.fillRect(0,canvas.height-30,this.health/100*canvas.width,15)
         
-        console.log(0,canvas.height-30,this.health/100*canvas.width,15)
         context.fillStyle="#f1c40f";
         context.fillRect(
             0,

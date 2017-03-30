@@ -20,6 +20,13 @@ class spritesheetMaker{
             new vector(1,1));
     }
     
+    static background4(){
+        return new spritesheet(
+            "../images/background5.png",
+            new vector(4500,800),
+            new vector(1,1));
+    }
+    
     static player1(){
         return new spritesheet(
             "../images/mainPlayer.png",
@@ -38,6 +45,13 @@ class spritesheetMaker{
         return new spritesheet(
             "../images/bullet1.png",
             new vector(20,20),
+            new vector(5,1));
+    }
+    
+    static explosion1(){
+        return new spritesheet(
+            "../images/explosion1.png",
+            new vector(118,118),
             new vector(5,1));
     }
 }

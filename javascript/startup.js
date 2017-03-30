@@ -19,6 +19,7 @@ var enemy1=enemyMaker.enemy1();
 var backgroundHolder1 = new backgroundTileHolder(2040,backgroundTilesMaker.tile1);
 var backgroundHolder2 = new backgroundTileHolder(1040,backgroundTilesMaker.tile2);
 var backgroundHolder3 = new backgroundTileHolder(1048,backgroundTilesMaker.tile3);
+var backgroundHolder4 = new backgroundTileHolder(1048,backgroundTilesMaker.tile4);
 
 var enemyHolder1=new enemyHolder(50);
 
@@ -30,6 +31,7 @@ engine.update = function () {
     backgroundHolder1.update(canvas);
     backgroundHolder2.update(canvas);
     backgroundHolder3.update(canvas);
+    backgroundHolder4.update(canvas);
     
     enemyHolder1.update(canvas,bulletHolder1,score);
     
@@ -40,9 +42,11 @@ engine.update = function () {
     }
     
     var collisionResult=enemyHolder1.collideWith(player1);
-    if(typeof(collisionResult)=="number"){
+    if(typeof(collisionResult)=="number" && 
+      enemyHolder1.totalEnemies[collisionResult].health>0 &&
+      player1.health>0){
         player1.health-=10;
-        enemyHolder1.remove(collisionResult);
+        enemyHolder1.totalEnemies[collisionResult].health=-20;
     }
     
     var collisionResult=bulletHolder1.collideWith(player1);
@@ -68,22 +72,27 @@ engine.draw = function () {
     backgroundHolder1.draw(context);
     backgroundHolder2.draw(context);
     backgroundHolder3.draw(context);
+    
     enemyHolder1.draw(context);
     
     if(player1.health>0){
         player1.draw(context);
     }
     
+    context.globalAlpha=0.4;
     bulletHolder1.draw(context);
+    context.globalAlpha=1;
+    
+    backgroundHolder4.draw(context);
     
     drawScore();
     
     context.strokeRect(0, 0, canvas.width, canvas.height);
     
     if(player1.health<=0){
-        context.font="72px Verdana";
+        context.font="100px Verdana";
         context.fillStyle="#e67e22";
-        context.fillText("Game over",150,350);
+        context.fillText("Game over",180,350);
     }
 }
 

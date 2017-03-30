@@ -26,4 +26,13 @@ class backgroundTilesMaker{
             0
         )
     }
+    static tile4(){
+        return new backgroundTile(
+            new vector(canvas.width,0),
+            new vector(canvas.width*12,canvas.height),
+            new vector(-8,0),
+            spritesheetMaker.background4(),
+            0
+        )
+    }
 }
