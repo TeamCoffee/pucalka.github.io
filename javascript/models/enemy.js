@@ -9,7 +9,7 @@ class enemy extends gameObject {
         this.speed = speed;
         this.spriteTimer = 0;
         this.spriteTimerSpeed = spriteTimerSpeed;
-        this.health=50;
+        this.health=30+Math.random()*100;
         this.fireTimerSpeed=fireTimerSpeed;
         this.fireTimer=0;
     }

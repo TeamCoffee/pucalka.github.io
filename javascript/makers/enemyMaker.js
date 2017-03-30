@@ -1,7 +1,7 @@
 class enemyMaker{
     static enemy1(){
         return new enemy(
-            new vector(700,Math.random()*400 + 100),
+            new vector(canvas.width,Math.random()*400 + 100),
             new vector(100,150),
             spritesheetMaker.enemy1(),
             new vector(-6,0),

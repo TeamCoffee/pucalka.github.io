@@ -1,7 +1,7 @@
 var engine = new Engine(
     900,
-    700, {
-    canvasId: "canvas-id",
+    700, 
+    {canvasId: "canvas-id",
     contextType: "2d",
     updateCallbackTime: 20
 });
@@ -77,6 +77,7 @@ engine.draw = function () {
     bulletHolder1.draw(context);
     
     drawScore();
+    
     context.strokeRect(0, 0, canvas.width, canvas.height);
     
     if(player1.health<=0){
